@@ -35,11 +35,6 @@ $(function(){
 
   var myLatlng = new google.maps.LatLng(51.536086,-0.153809);
 
-  var marker = new google.maps.Marker({
-    map: map,
-    title:"Hello World!",
-    position: myLatlng
-  });
 
   // Autocomplete
   var infowindow = new google.maps.InfoWindow();
@@ -79,6 +74,43 @@ $(function(){
     infowindow.open(map, marker);
 
   });
+
+
+  // Define Bus Stop Query
+
+  function bus_stop_api_url(){
+
+  }
+
+  
+  // Define Bus Arival Query
+
+  function bus_arrival_api_url(){
+
+  }
+
+  // api request
+
+  function request(){
+
+  }
+
+  // Place Bus Stop Markers
+
+  function create_bus_stop_markers(){
+  
+    var marker = new google.maps.Marker({
+      map: map,
+      title:"Hello World!",
+      position: myLatlng
+    })
+
+  }
+
+  // List Arrial Data for Near-by Buses
+
+
+
 
 })
 
