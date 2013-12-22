@@ -79,15 +79,23 @@ $(function(){
 
     // Define bus stops api 
 
-  ne = "51.52783450,-0.04076115";
-  sw = "51.51560467,-0.10225884";
+  // ne = "51.52783450,-0.04076115";
+  // sw = "51.51560467,-0.10225884";
+
+  positionlat = 51.52783450;
+  positionlng = -0.04076115;
+
+  factor = 0.0089982311916;
+
+  ne = [positionlat + factor, positionlng + factor];
+  sw = [positionlat - factor, positionlng - factor];
+
 
   function bus_stops_api_url(northEast, southWest){
     var callback_name = "callback=bus_stops";
     var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops";
   
     return [url, "?", "northEast=", northEast, "&", "southWest=", southWest,].join("")
-
   }
 
   function bus_stops_request(northEast, southWest){
