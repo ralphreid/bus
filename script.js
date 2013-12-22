@@ -15,6 +15,11 @@ $(function(){
   function updateLocation(position) {
     var coords = position.coords;
     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+
+    console.log("get current location");
+    console.log(coords.latitude);
+    console.log(coords.longitude);
+
     var marker = new google.maps.Marker({
       position: latlng,
       map: map
@@ -78,9 +83,6 @@ $(function(){
 
 
     // Define bus stops api 
-
-  // ne = "51.52783450,-0.04076115";
-  // sw = "51.51560467,-0.10225884";
 
   positionlat = 51.52783450;
   positionlng = -0.04076115;
