@@ -1,5 +1,8 @@
 $(function(){
 
+
+  // google maps functions
+
   var mapOptions = {
     zoom: 8,
     center: new google.maps.LatLng(51.508, -0.120),
@@ -32,9 +35,6 @@ $(function(){
       alert("Can not find location");
     }
   })
-
-  var myLatlng = new google.maps.LatLng(51.536086,-0.153809);
-
 
   // Autocomplete
   var infowindow = new google.maps.InfoWindow();
@@ -73,29 +73,46 @@ $(function(){
     infowindow.setContent("<div>"+place.name+"</div><br />" + address);
     infowindow.open(map, marker);
 
+
   });
 
 
-  // Define bus stops api 
+    // Define bus stops api 
 
-  var northEast = "51.5278345,-0.04076115";
-  var southWest = "51.51560467,-0.10225884";
+  ne = "51.52783450,-0.04076115";
+  sw = "51.51560467,-0.10225884";
 
   function bus_stops_api_url(northEast, southWest){
-    var callback_name = "callback=mycallback";
+    var callback_name = "callback=bus_stops";
     var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops";
-
-    return [url, "?", "northEast=", northEast, "&", "southWest=", southWest, callback_name ].join("")
-  }
-
-  function bus_stops_request(){
+  
+    return [url, "?", "northEast=", northEast, "&", "southWest=", southWest,].join("")
 
   }
+
+  function bus_stops_request(northEast, southWest){
+    var url = bus_stops_api_url(northEast, southWest);
+    $.ajax({
+      type: "GET",
+      url: url,
+      jsonpCallback: 'bus_stops',
+      dataType: 'jsonp',
+        success:function(data){
+          console.log(data);
+        }
+    });
+    
+  }
+
+  bus_stops_request(ne, sw);
+
+  
 
   // Place Bus Stop Markers
 
   function create_bus_stop_markers(){
-  
+    var myLatlng = new google.maps.LatLng(51.536086,-0.153809);
+
     var marker = new google.maps.Marker({
       map: map,
       title:"Hello World!",
@@ -105,6 +122,10 @@ $(function(){
   }
 
   // List Arrial Data for Near-by Buses
+
+
+
+
 
 
 
