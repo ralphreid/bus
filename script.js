@@ -29,9 +29,17 @@ $(function(){
       navigator.geolocation.getCurrentPosition(updateLocation, handleErrorLocation);
       navigator.geolocation.watchPosition(updateLocation, handleErrorLocation);
     } else {
-      alert("I leave you in the 90's");
+      alert("Can not find location");
     }
   })
+
+  var myLatlng = new google.maps.LatLng(51.536086,-0.153809);
+
+  var marker = new google.maps.Marker({
+    map: map,
+    title:"Hello World!",
+    position: myLatlng
+  });
 
   // Autocomplete
   var infowindow = new google.maps.InfoWindow();
