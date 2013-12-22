@@ -76,15 +76,9 @@ $(function(){
 
     infowindow.setContent("<div>"+place.name+"</div><br />" + address);
     infowindow.open(map, marker);
-    // console.log(place.address_components);
-    console.log(place.geometry.location.nb);
-    console.log(place.geometry.location.ob);
-    // bounded_box_ne(coords.latitude, coords.longitude);
-    // bounded_box_sw(coords.latitude, coords.longitude);
-    // bus_stops_request(ne, sw);
-    // console.log("get current location");
-    // console.log(coords.latitude);
-    // console.log(coords.longitude);
+    bounded_box_ne(place.geometry.location.nb, place.geometry.location.ob);
+    bounded_box_sw(place.geometry.location.nb, place.geometry.location.ob);
+    bus_stops_request(ne, sw);
 
   });
 
@@ -101,13 +95,12 @@ $(function(){
     return sw = [positionlat - factor, positionlng - factor];
   }
 
-  // Define bus stops api 
+  // Get Bus Stops 
 
   function bus_stops_api_url(northEast, southWest){
     var callback_name = "callback=bus_stops";
     var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops";
-  
-    return [url, "?", "northEast=", northEast, "&", "southWest=", southWest,].join("")
+    return [url, "?", "northEast=", northEast, "&", "southWest=", southWest].join("")
   }
 
   function bus_stops_request(northEast, southWest){
@@ -120,13 +113,31 @@ $(function(){
         success:function(data){
           console.log(data);
         }
-    });
-    
+    });  
   }
 
+  // Get Arrival Information
 
+  function arrival_api_url(bus_stop_id){
+    var calback_name = "callback=arrival";
+    var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops/";
+    return [url, bus_stop_id].join("")
+  }
+
+  function arrival_request(bus_stop_id){
+    var url = arrival_api_url(bus_stop_id);
+    $.ajax({
+      type: "GET",
+      url: url,
+      jsonpCallback: 'arrival',
+      dataType: 'jsonp',
+        success:function(data){
+          console.log(data);
+        }
+    });  
+  }
   
-  
+  console.log(arrival_request(58382));
 
   // Place Bus Stop Markers
 
@@ -138,40 +149,8 @@ $(function(){
       title:"Hello World!",
       position: myLatlng
     })
-
   }
 
   // List Arrial Data for Near-by Buses
 
-
-
-
-// testing area
-
-// plat = 51.52783450;
-// plng = -0.04076115;
-
-// bounded_box_ne (plat, plng);
-// bounded_box_sw (plat, plng);
-
-// bus_stops_request(ne, sw);
-
-
-
-
-
-
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
