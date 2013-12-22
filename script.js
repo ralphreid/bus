@@ -76,22 +76,19 @@ $(function(){
   });
 
 
-  // Define Bus Stop Query
+  // Define bus stops api 
 
-  function bus_stop_api_url(){
+  var northEast = "51.5278345,-0.04076115";
+  var southWest = "51.51560467,-0.10225884";
 
+  function bus_stops_api_url(northEast, southWest){
+    var callback_name = "callback=mycallback";
+    var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops";
+
+    return [url, "?", "northEast=", northEast, "&", "southWest=", southWest, callback_name ].join("")
   }
 
-  
-  // Define Bus Arival Query
-
-  function bus_arrival_api_url(){
-
-  }
-
-  // api request
-
-  function request(){
+  function bus_stops_request(){
 
   }
 
