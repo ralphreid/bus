@@ -15,10 +15,9 @@ $(function(){
   function updateLocation(position) {
     var coords = position.coords;
     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-
-    console.log("get current location");
-    console.log(coords.latitude);
-    console.log(coords.longitude);
+    bounded_box_ne(coords.latitude, coords.longitude);
+    bounded_box_sw(coords.latitude, coords.longitude);
+    bus_stops_request(ne, sw);
 
     var marker = new google.maps.Marker({
       position: latlng,
@@ -77,21 +76,32 @@ $(function(){
 
     infowindow.setContent("<div>"+place.name+"</div><br />" + address);
     infowindow.open(map, marker);
-
+    // console.log(place.address_components);
+    console.log(place.geometry.location.nb);
+    console.log(place.geometry.location.ob);
+    // bounded_box_ne(coords.latitude, coords.longitude);
+    // bounded_box_sw(coords.latitude, coords.longitude);
+    // bus_stops_request(ne, sw);
+    // console.log("get current location");
+    // console.log(coords.latitude);
+    // console.log(coords.longitude);
 
   });
 
+  // Calculate bounded box parameters based on simple deg calculations (research recommended factor of 0.0089982311916)
+  // http://gis.stackexchange.com/questions/19760/how-do-i-calculate-the-bounding-box-for-given-a-distance-and-latitude-longitude
 
-    // Define bus stops api 
+  factor = 0.0049982311916;
 
-  positionlat = 51.52783450;
-  positionlng = -0.04076115;
+  function bounded_box_ne (positionlat, positionlng){
+    return ne = [positionlat + factor, positionlng + factor];
+  }
 
-  factor = 0.0089982311916;
+  function bounded_box_sw (positionlat, positionlng){
+    return sw = [positionlat - factor, positionlng - factor];
+  }
 
-  ne = [positionlat + factor, positionlng + factor];
-  sw = [positionlat - factor, positionlng - factor];
-
+  // Define bus stops api 
 
   function bus_stops_api_url(northEast, southWest){
     var callback_name = "callback=bus_stops";
@@ -114,8 +124,8 @@ $(function(){
     
   }
 
-  bus_stops_request(ne, sw);
 
+  
   
 
   // Place Bus Stop Markers
@@ -134,6 +144,17 @@ $(function(){
   // List Arrial Data for Near-by Buses
 
 
+
+
+// testing area
+
+// plat = 51.52783450;
+// plng = -0.04076115;
+
+// bounded_box_ne (plat, plng);
+// bounded_box_sw (plat, plng);
+
+// bus_stops_request(ne, sw);
 
 
 
