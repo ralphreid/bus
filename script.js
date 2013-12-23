@@ -114,8 +114,6 @@ $(function(){
           $.each(data.markers, function(idx, obj){
             arrivals.after(create_stop_list_item(obj.name, obj.id));
             arrival_request(obj.id);
-
-            
           })
         }
     });  
@@ -142,41 +140,24 @@ $(function(){
             
             var buses = arrival_details(obj.routeName, obj.estimatedWait, obj.destination);
 
-            bus_array.push(buses);
-             
-            // console.log(buses);
-            // console.log(bus_stop_id);
-            // console.log(bus_stop_id);
-            // var bus_detail_string = ["'", "#", bus_stop_id, "'"].join("");
-            // console.log(bus_detail_string);
-            // $(bus_detail_string).append('<li>foo</li>');
-            // // $("#'" + bus_stop_id + "'").html('test');
-            // console.log(bus_stop_id);
-            // $('#55343').html('foo')
-
-            // var area = $("'#" + bus_stop_id + "'");
-            // console.log(area);
-            // area.append('<li>test</li>');
-            // $('#73983').append('<li>foo</li>')
-            // $.each(data.markers, function(idx, obj){
-            // var jot = arrival_details('test', 'test', 'test');
-            // var details = arrival_details('yes');
-            // var details = arrival_details();
+            console.log(buses);
+           
           })
         }
     });
-    
-    console.log(bus_array);
-    return bus_array;
+  }
+
+  function render_arrivals(bus_stop_id){
+    var area = $("'#" + bus_stop_id + "'");
+    area.append('<li>test</li>');
   }
 
   function arrival_details(route_name, wait, dest){
     return [route_name, ' to ', dest, ' arrives in ', wait].join("");
   }
   
-  // console.log(arrival_request(58382));
 
-  // Place Bus Stop Markers
+  // Place Bus Stop Markers - not activated
 
   function create_bus_stop_markers(){
     var myLatlng = new google.maps.LatLng(51.536086,-0.153809);
