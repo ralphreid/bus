@@ -16,7 +16,7 @@
     </div>
   </nav>
     <div class='row'>
-      <div class='col-md-4'>
+      <div class='col-md-2'>
         <h3>GEOLOCATION</h3>
         <button class='btn btn-default' id='current_location'>Show my Location</button>
       </div>
@@ -26,21 +26,9 @@
           <input type='text' id='autocomplete' class='form-control' placeholder='search'>
         </form>
       </div>
-      <div class='col-md-4'>
+      <div class='col-md-6'>
         <h3>DEPARTURE BOARD</h3>
         <h4>(stops within approx 1km)</h4>
-        <table class="table table-striped">
-          <tr>
-            <th>Bus Stop</th>
-            <th>Arrivals</th>
-          </tr>
-          <div class='arivals'>
-          <tr>
-            <td>Ariving Bus Stop</td>
-            <td>Arivals List</td>
-          </tr>
-          </div>
-        </table>
       </div>
     </div>  
     <div class='row'>
@@ -48,7 +36,16 @@
         <div id='googleMap'></div>
       </div>
       <div id='departure-container' class='col-md-6'>
-        <div id='departure-panel'></div>
+        <table class="table table-striped" id='arrivals'>
+          <tr>
+            <th>Bus Stop</th>
+            <th>Arrivals</th>
+          </tr>
+          <tr>
+            <td>Arriving Bus Stop</td>
+            <td>Arrivals List</td>
+          </tr>
+        </table>
       </div>  
     </div>
 

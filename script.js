@@ -1,6 +1,5 @@
 $(function(){
 
-
   // google maps functions
 
   var mapOptions = {
@@ -111,7 +110,14 @@ $(function(){
       jsonpCallback: 'bus_stops',
       dataType: 'jsonp',
         success:function(data){
+          var arrivals = $('#arrivals tr:last');
+          sample = data;
           console.log(data);
+          $.each(data.markers, function(idx, obj){
+            console.log(obj.id);
+            arrivals.after(create_stop_list_item(obj.name));
+          })
+          
         }
     });  
   }
@@ -153,8 +159,16 @@ $(function(){
 
   // List Arrial Data for Near-by Buses
 
-  function create_stop_list_item(data){
-    html_string = 
+  function create_stop_list_item(stop){
+    html_string = "<tr>" +
+                    "<td>" + stop + "</td>" +
+                    "<td>" + stop + "</td>" +
+                  "</tr>";
+    // html_string = 
+    //                 "<td>" + stop + "</td>" +
+    //                 "<td>" + stop + "</td>"
+                  
+    return html_string
   }
 
 })
