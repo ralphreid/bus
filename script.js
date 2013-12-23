@@ -112,16 +112,9 @@ $(function(){
         success:function(data){
           var arrivals = $('#arrivals tr:last');
           $.each(data.markers, function(idx, obj){
-            console.log(obj.id);
-            
             arrival_request(obj.id);
-            // console.log(stop_data);
-            // console.log(stop_data);
-
             arrivals.after(create_stop_list_item(obj.name, arrival_details()));
-            
           })
-          
         }
     });  
   }
@@ -142,17 +135,19 @@ $(function(){
       jsonpCallback: 'arrival',
       dataType: 'jsonp',
         success:function(data){
-          console.log(data);
-          console.log(data.arrivals);
           $.each(data.arrivals, function(idx, obj){
-          console.log(obj.routeName);
+            // console.log(obj);
+            // console.log(obj.routeName);
+            // console.log(arrival_details(obj.routeName, obj.estimatedWait, obj.destination));
+            string = arrival_details(obj.routeName, obj.estimatedWait, obj.destination);
           })
         }
-    }); 
+    });
+    return string; 
   }
 
-  function arrival_details(){
-    return ["ralph", "cool"].join("")
+  function arrival_details(route_name, wait, dest){
+    return ["ralph", "cool", route_name, wait, dest].join("");
   }
   
   // console.log(arrival_request(58382));
