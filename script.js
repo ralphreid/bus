@@ -112,8 +112,10 @@ $(function(){
         success:function(data){
           var arrivals = $('#arrivals tr:last');
           $.each(data.markers, function(idx, obj){
+            arrivals.after(create_stop_list_item(obj.name, obj.id));
             arrival_request(obj.id);
-            arrivals.after(create_stop_list_item(obj.name, arrival_details()));
+
+            
           })
         }
     });  
@@ -122,32 +124,54 @@ $(function(){
   // Get Arrival Information
 
   function arrival_api_url(bus_stop_id){
-    var calback_name = "callback=arrival";
+    var calback_name = "callback=soon";
     var url = "http://digitaslbi-id-test.herokuapp.com/bus-stops/";
     return [url, bus_stop_id].join("")
   }
 
   function arrival_request(bus_stop_id){
     var url = arrival_api_url(bus_stop_id);
+    bus_array = [];
     $.ajax({
       type: "GET",
       url: url,
-      jsonpCallback: 'arrival',
+      jsonpCallback: 'soon',
       dataType: 'jsonp',
         success:function(data){
           $.each(data.arrivals, function(idx, obj){
-            // console.log(obj);
-            // console.log(obj.routeName);
-            // console.log(arrival_details(obj.routeName, obj.estimatedWait, obj.destination));
-            string = arrival_details(obj.routeName, obj.estimatedWait, obj.destination);
+            
+            var buses = arrival_details(obj.routeName, obj.estimatedWait, obj.destination);
+
+            bus_array.push(buses);
+             
+            // console.log(buses);
+            // console.log(bus_stop_id);
+            // console.log(bus_stop_id);
+            // var bus_detail_string = ["'", "#", bus_stop_id, "'"].join("");
+            // console.log(bus_detail_string);
+            // $(bus_detail_string).append('<li>foo</li>');
+            // // $("#'" + bus_stop_id + "'").html('test');
+            // console.log(bus_stop_id);
+            // $('#55343').html('foo')
+
+            // var area = $("'#" + bus_stop_id + "'");
+            // console.log(area);
+            // area.append('<li>test</li>');
+            // $('#73983').append('<li>foo</li>')
+            // $.each(data.markers, function(idx, obj){
+            // var jot = arrival_details('test', 'test', 'test');
+            // var details = arrival_details('yes');
+            // var details = arrival_details();
           })
         }
     });
-    return string; 
+    
+    console.log(bus_array);
+    return bus_array;
   }
 
   function arrival_details(route_name, wait, dest){
-    return ["ralph", "cool", route_name, wait, dest].join("");
+    return [route_name, ' to ', dest, ' arrives in ', wait].join("");
   }
   
   // console.log(arrival_request(58382));
@@ -166,15 +190,14 @@ $(function(){
 
   // List Arrial Data for Near-by Buses
 
-  function create_stop_list_item(stop, details){
+  function create_stop_list_item(stop, bus_stop_id){
     html_string = "<tr>" +
                     "<td>" + stop + "</td>" +
-                    "<td>" + details + "</td>" +
+                    "<td>" +
+                      "<ul id='" + bus_stop_id + "'>" +
+                      "</ul>" +
+                    "</td>" +
                   "</tr>";
-    // html_string = 
-    //                 "<td>" + stop + "</td>" +
-    //                 "<td>" + stop + "</td>"
-                  
     return html_string
   }
 
