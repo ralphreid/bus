@@ -111,14 +111,15 @@ $(function(){
       dataType: 'jsonp',
         success:function(data){
           var arrivals = $('#arrivals tr:last');
-          console.log(data);
           $.each(data.markers, function(idx, obj){
             console.log(obj.id);
-          
-            test = arrival_request(obj.id);
-            console.log(test);
+            
+            arrival_request(obj.id);
+            // console.log(stop_data);
+            // console.log(stop_data);
 
-            arrivals.after(create_stop_list_item(obj.name));
+            arrivals.after(create_stop_list_item(obj.name, arrival_details()));
+            
           })
           
         }
@@ -142,8 +143,16 @@ $(function(){
       dataType: 'jsonp',
         success:function(data){
           console.log(data);
+          console.log(data.arrivals);
+          $.each(data.arrivals, function(idx, obj){
+          console.log(obj.routeName);
+          })
         }
-    });  
+    }); 
+  }
+
+  function arrival_details(){
+    return ["ralph", "cool"].join("")
   }
   
   // console.log(arrival_request(58382));
@@ -162,10 +171,10 @@ $(function(){
 
   // List Arrial Data for Near-by Buses
 
-  function create_stop_list_item(stop){
+  function create_stop_list_item(stop, details){
     html_string = "<tr>" +
                     "<td>" + stop + "</td>" +
-                    "<td>" + stop + "</td>" +
+                    "<td>" + details + "</td>" +
                   "</tr>";
     // html_string = 
     //                 "<td>" + stop + "</td>" +
