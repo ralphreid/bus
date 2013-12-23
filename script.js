@@ -137,7 +137,7 @@ $(function(){
     });  
   }
   
-  console.log(arrival_request(58382));
+  // console.log(arrival_request(58382));
 
   // Place Bus Stop Markers
 
@@ -152,5 +152,9 @@ $(function(){
   }
 
   // List Arrial Data for Near-by Buses
+
+  function create_stop_list_item(data){
+    html_string = 
+  }
 
 })
