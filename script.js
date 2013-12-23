@@ -84,7 +84,7 @@ $(function(){
   // Calculate bounded box parameters based on simple deg calculations (research recommended factor of 0.0089982311916)
   // http://gis.stackexchange.com/questions/19760/how-do-i-calculate-the-bounding-box-for-given-a-distance-and-latitude-longitude
 
-  factor = 0.0049982311916;
+  factor = 0.0029982311916;
 
   function bounded_box_ne (positionlat, positionlng){
     return ne = [positionlat + factor, positionlng + factor];
@@ -111,10 +111,13 @@ $(function(){
       dataType: 'jsonp',
         success:function(data){
           var arrivals = $('#arrivals tr:last');
-          sample = data;
           console.log(data);
           $.each(data.markers, function(idx, obj){
             console.log(obj.id);
+          
+            test = arrival_request(obj.id);
+            console.log(test);
+
             arrivals.after(create_stop_list_item(obj.name));
           })
           
